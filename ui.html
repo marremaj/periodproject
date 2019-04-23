@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<header>
+    My Beautiful Project
+</header>
+<div id="left">
+  <div id="adder" class="sideArea">
+    <h3>Add date</h3>
+    <input type="date" id="addinput"\>
+    <button onClick="addDoc" id="inputButton">send</button>
+  </div>
+  <div id="avg" class="sideArea">
+    <h3>Average</h3>
+    <p id="avgBox">- days</p>
+  </div>
+  <div id="next" class="sideArea">
+    <h3>Expected next</h3>
+    <p id="nextBox">--/--/----</p>
+  </div>
+</div>
+<div id="right">
+    <table>
+        <tbody id="list">
+            <tr>
+                <th>ID</th>
+                <th>date</th>
+            </tr>
+        </tbody>
+    </table>
+    <iframe src="calendar.html"></iframe>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

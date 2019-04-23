@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calendar</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<style>
+  table {
+      border-collapse: collapse;
+  }
+  td {
+      width: 10vw;
+      height: 10vh;
+      border: 1px solid black;
+      text-align: center;
+      cursor:default;
+      position: relative;
+  }
+  td:hover {
+    background-color: #f0f0f0;
+  }
+  .red {
+      background-color: red;
+      color: white;
+  }
+  .red:hover {
+      background-color: darkred;
+  }
+  #x {
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 10px 0;
+    position: absolute;
+    z-index: 1;
+    top: 90%;
+    left: 90%;
+    margin-left: -80px;
+  }
+</style>
+<body>
+    <div style="text-align:center">
+        <span id="back">&lt;</span>    <span id="month"></span>    <span id="next">&gt;</span>
+    </div>
+    <table style="margin:auto">
+        <tbody id="content">
+            <tr>
+                <td id="pl0"></td>
+                <td id="pl1"></td>
+                <td id="pl2"></td>
+                <td id="pl3"></td>
+                <td id="pl4"></td>
+                <td id="pl5"></td>
+                <td id="pl6"></td>
+            </tr>
+            <tr>
+                <td id="pl7"></td>
+                <td id="pl8"></td>
+                <td id="pl9"></td>
+                <td id="pl10"></td>
+                <td id="pl11"></td>
+                <td id="pl12"></td>
+                <td id="pl13"></td>
+            </tr>
+            <tr>
+                <td id="pl14"></td>
+                <td id="pl15"></td>
+                <td id="pl16"></td>
+                <td id="pl17"></td>
+                <td id="pl18"></td>
+                <td id="pl19"></td>
+                <td id="pl20"></td>
+            </tr>
+            <tr>
+                <td id="pl21"></td>
+                <td id="pl22"></td>
+                <td id="pl23"></td>
+                <td id="pl24"></td>
+                <td id="pl25"></td>
+                <td id="pl26"></td>
+                <td id="pl27"></td>
+            </tr>
+            <tr>
+                <td id="pl28"></td>
+                <td id="pl29"></td>
+                <td id="pl30"></td>
+                <td id="pl31"></td>
+                <td id="pl32"></td>
+                <td id="pl33"></td>
+                <td id="pl34"></td>
+            </tr>
+            <tr>
+                <td id="pl35"></td>
+                <td id="pl36"></td>
+                <td id="pl37"></td>
+                <td id="pl38"></td>
+                <td id="pl39"></td>
+                <td id="pl40"></td>
+                <td id="pl41"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var dates = [];
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var result = JSON.parse(this.responseText);
+            dates = result[2].map((x) => (new Date(x)));
+            console.log(dates);
+        }
+    };
+    xhttp.open("GET", "getList", true);
+    xhttp.send();
+    var currentMonth = {m: 3, y: 2019};
+    function changeMonth() {
+        for (let index = 0; index < 42; index++) {
+            $("#pl" + index).empty();
+            $("#pl" + index).removeClass("red");
+        }
+        $("#month").text(months[currentMonth.m] + " " + currentMonth.y);
+        var tomorrow = new Date(currentMonth.y, currentMonth.m);
+        var weekday = tomorrow.getDay() - 1;
+        thisMonth = dates.filter(function(x) {return (x.getMonth() == currentMonth.m && x.getFullYear() == currentMonth.y)})
+        while (tomorrow.getMonth() == currentMonth.m) {
+            monthday = tomorrow.getDate();
+            $("#pl" + weekday).text(monthday);
+            thisMonth.forEach(function(x) {
+                if (x.getDate() == tomorrow.getDate()) {
+                    $('#pl' + weekday).attr("class", "red");
+                    console.log("bu");
+                    
+                }
+            })
+            if (dates.includes(tomorrow)) {
+                $('#pl' + weekday).attr("class", "red");
+            }
+            weekday += 1;
+            tomorrow.setDate(tomorrow.getDate() + 1); 
+        }
+    }
+    changeMonth();
+    $("#back").click(function(){
+        currentMonth.m -= 1;
+        if (currentMonth.m < 0) {
+            currentMonth.m = 11;
+            currentMonth.y -= 1;
+        }
+        changeMonth();
+    });
+    $("#next").click(function(){
+        currentMonth.m += 1;
+        if (currentMonth.m > 11) {
+            currentMonth.m = 0;
+            currentMonth.y += 1;
+        }
+        changeMonth();
+    });
+    $("td").click(function(){
+        $("#x").remove();
+        var day = $(this).text();
+        if (day != "") {
+          $(this).append("<span id='x'>April " + day + "th<br/>57%</span>");
+        }
+    });
+    </script>
+</body>
+</html>

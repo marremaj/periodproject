@@ -1,0 +1,46 @@
+
+* {
+    margin: 0px;
+}
+p {
+    margin: 4px;
+}
+button {
+    background-color: cornsilk;
+    border: 1px solid peru;
+    border-radius: 3px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: blanchedalmond;
+}
+header {
+    height: 12vh;
+    background-color: #242054;
+    color: white;
+    padding: 3vh;
+    box-sizing: border-box;
+    font-size: 6vh;
+    font-style: italic;
+   /* font-family: "Snell Roundhand", cursive;*/
+}
+#left {
+    height: 88vh;
+    float: left;
+    width: 40%;
+    background-color: #f0e0f0;
+}
+#right {
+    height: 88vh;
+    float: left;
+    padding: 50px;
+    box-sizing: border-box;
+    width: 60%;
+    background-color: aliceblue;
+}
+
+.sideArea {
+    margin: 5vh 5vw;
+    border: 1px solid black;
+    padding: 10px;
+}
